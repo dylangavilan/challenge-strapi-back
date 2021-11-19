@@ -37,6 +37,14 @@
     "isExact": {
       "type": "boolean",
       "required": true
+    },
+    "sexo": {
+      "type": "enumeration",
+      "enum": [
+        "Macho",
+        "Hembra"
+      ],
+      "required": true
     }
   }
 }
