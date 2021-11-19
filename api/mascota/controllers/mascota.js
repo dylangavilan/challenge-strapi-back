@@ -7,18 +7,18 @@
 
 module.exports = {
   async createMascota(ctx) {
+    const { name, years, date, isExact, raza, edadtipo, sexo } =
+      ctx.request.body;
     try {
-      const { name, years, date, isExact, raza, edadtipo, sexo } =
-        ctx.request.body;
-      console.log(ctx.request.body);
       if (!isExact) {
         let calculo = edadtipo === "year" ? years * 12 : years;
-        let date = new Date("25 Dec 2021");
-        date.setMonth(date.getMonth() - calculo);
+        console.log("calculo", calculo);
+        let fecha = new Date("25 Dec 2021");
+        fecha.setMonth(fecha.getMonth() - calculo);
         await strapi.services.mascota.create({
           name: name,
           edad: years,
-          nacimiento: date,
+          nacimiento: fecha,
           isExact: isExact,
           raza: raza,
           edadtipo: edadtipo,
@@ -69,7 +69,8 @@ module.exports = {
         }
       }
     } catch (err) {
-      ctx.send(err.message);
+      ctx.status = 400;
+      ctx.send(err);
     }
   },
 };
